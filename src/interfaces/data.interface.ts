@@ -1,5 +1,15 @@
 import { UserState } from '../features/user/userSlice';
-
+export enum UserRoleEnum {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
+}
+export enum TaskStatus {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  IN_REVIEW = 'IN_REVIEW',
+  DONE = 'DONE',
+}
 export interface Pages {
   id: number;
   name: string;

@@ -59,3 +59,12 @@ export const updateUserProfile = createAsyncThunk('user/updateUserProfile', asyn
     throw Error(`${error}`);
   }
 });
+
+export const getAllUsersByAdmin = createAsyncThunk('users/GetAllUsers', async (_body, thunkAPI) => {
+  try {
+    const res = await axios.get('/users');
+    return res.data;
+  } catch (error) {
+    throw Error(`${error}`);
+  }
+});
