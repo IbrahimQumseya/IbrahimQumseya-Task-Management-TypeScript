@@ -21,6 +21,7 @@ import { logout } from '../features/user/userSlice';
 import ProgressSpinner from './progress/ProgressSpinner';
 import { selectTaskStatus, UserInterface } from '../features/tasks/tasksSlice';
 import { getUserProfileImage } from '../api/userAPI';
+import { Grid } from '@mui/material';
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,9 @@ const NavBar = () => {
 
   React.useEffect(() => {
     if (doesUserHaveImage && !profileImage) {
+      console.log('====================================');
+      console.log('hello');
+      console.log('====================================');
       dispatch(getUserProfileImage());
     }
   }, [doesUserHaveImage, dispatch, profileImage]);

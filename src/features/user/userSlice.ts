@@ -9,7 +9,7 @@ import {
   updateUserProfile,
 } from '../../api/userAPI';
 import { RootState } from '../../app/store';
-import { UserDetails } from '../../interfaces/data.interface';
+import { UserDetails, UserRoleEnum } from '../../interfaces/data.interface';
 
 export interface UserState {
   isAuthenticated: boolean;
@@ -20,6 +20,7 @@ export interface UserState {
     firstName: string;
     lastName: string;
     email: string;
+    role: UserRoleEnum;
     profileImage: string;
   };
   userDetails: UserDetails;
@@ -37,6 +38,7 @@ const initialState: UserState = {
     firstName: '',
     lastName: '',
     email: '',
+    role: UserRoleEnum.USER,
     profileImage: '',
   },
   profileImage: '',

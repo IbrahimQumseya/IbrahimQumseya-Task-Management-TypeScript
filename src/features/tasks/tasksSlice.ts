@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllTasks, fetchCreateTask } from '../../api/tasksAPI';
+import { fetchCreateTask, fetchAllTasksByAdmin, fetchAllTasksByUser, updateTaskStatus } from '../../api/tasksAPI';
 import { RootState } from '../../app/store';
+import { TaskStatus } from '../../interfaces/data.interface';
 
 export interface taskMetadataInterface {
   id: string;
@@ -25,6 +26,7 @@ export interface TasksState {
       description: string;
       user: UserInterface;
       taskMetadata: taskMetadataInterface;
+      status?: TaskStatus;
     }
   ];
   status: 'idle' | 'loading' | 'failed';
@@ -35,6 +37,7 @@ const initialState: TasksState = {
       id: '',
       title: '',
       description: '',
+      status: TaskStatus.OPEN,
       taskMetadata: {
         details: '',
         id: '',
@@ -61,14 +64,25 @@ export const tasksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllTasks.pending, (state, action) => {
+      .addCase(fetchAllTasksByAdmin.pending, (state, action) => {
         state.status = 'loading';
       })
-      .addCase(fetchAllTasks.fulfilled, (state, action) => {
+      .addCase(fetchAllTasksByAdmin.fulfilled, (state, action) => {
         state.status = 'idle';
         state.tasks = action.payload;
       })
-      .addCase(fetchAllTasks.rejected, (state, action) => {
+      .addCase(fetchAllTasksByAdmin.rejected, (state, action) => {
+        state.status = 'failed';
+      })
+
+      .addCase(fetchAllTasksByUser.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllTasksByUser.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.tasks = action.payload;
+      })
+      .addCase(fetchAllTasksByUser.rejected, (state, action) => {
         state.status = 'failed';
       })
 
@@ -80,6 +94,20 @@ export const tasksSlice = createSlice({
         state.tasks.push(action.payload);
       })
       .addCase(fetchCreateTask.rejected, (state, action) => {
+        state.status = 'failed';
+      })
+
+      .addCase(updateTaskStatus.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(updateTaskStatus.fulfilled, (state, action) => {
+        state.status = 'idle';
+        const { status, taskId } = action.meta.arg;
+        if (status != undefined) {
+          state.tasks.find((task) => task.id === taskId)!.status = status;
+        }
+      })
+      .addCase(updateTaskStatus.rejected, (state, action) => {
         state.status = 'failed';
       });
   },

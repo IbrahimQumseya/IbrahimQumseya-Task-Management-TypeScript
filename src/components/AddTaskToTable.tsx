@@ -1,20 +1,25 @@
 import { Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { ChangeEvent, FormEventHandler, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCreateTask } from '../api/tasksAPI';
+import { RootState } from '../app/store';
+import SelectUser from './SelectUser.component';
 
 export interface CreateTaskInterface {
   status: 'OPEN' | 'IN_PROGRESS' | 'DONE';
   title: string;
   description: string;
+  userId: string;
 }
 function AddTaskToTable() {
   const dispatch = useDispatch();
+  const userId = useSelector((state: RootState) => state.users.userId);
   const [state, setState] = useState<CreateTaskInterface>({
     title: '',
     description: '',
     status: 'OPEN',
+    userId: userId,
   });
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,14 +29,16 @@ function AddTaskToTable() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     if (state) {
-      dispatch(fetchCreateTask(state));
+      dispatch(fetchCreateTask({ ...state, userId: userId }));
     }
   };
   return (
     <Box
       sx={{
         marginTop: 8,
+        // p:20,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -66,6 +73,7 @@ function AddTaskToTable() {
           autoComplete='description'
           onChange={handleOnChange}
         />
+        <SelectUser />
         <Button type='submit' variant='contained' sx={{ mt: 3 }}>
           Add a task
         </Button>

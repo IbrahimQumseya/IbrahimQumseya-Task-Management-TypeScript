@@ -76,6 +76,9 @@ export default function SignIn() {
             Sign in
           </Typography>
           <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            {/* <Typography component='h4' variant='h5'>
+              Lost your password? Please enter your email address. You will receive a link to create a new password via email.
+            </Typography> */}
             <TextField
               margin='normal'
               required

@@ -56,7 +56,7 @@ const UserProfile = () => {
   }, [dispatch, doesUserHaveProfilePicture]);
 
   useEffect(() => {
-    if (!selectUserProfileImage.match('blob:')) {
+    if (!selectUserProfileImage.match('blob:') && doesUserHaveProfilePicture) {
       dispatch(getUserProfileImage());
     }
   }, [dispatch, selectUserProfileImage]);
