@@ -76,6 +76,13 @@ export const userSlice = createSlice({
       const { firstName, lastName } = action.payload;
       state.user = { ...state.user, firstName, lastName };
     },
+    refreshState: (state) => {
+      state.user = initialState.user;
+      state.profileImage = initialState.profileImage;
+      state.userDetails = initialState.userDetails;
+      state.status = initialState.status;
+      state.isAuthenticated = initialState.isAuthenticated;
+    },
   },
   extraReducers: (builder: ActionReducerMapBuilder<UserState>) => {
     builder
@@ -153,5 +160,5 @@ export const userSlice = createSlice({
 });
 
 export const selectUserState = (state: RootState) => state.user;
-export const { login, logout, setUserProfileImage, setUser, setUserFirstLastName } = userSlice.actions;
+export const { login, logout, setUserProfileImage, setUser, setUserFirstLastName, refreshState } = userSlice.actions;
 export default userSlice.reducer;

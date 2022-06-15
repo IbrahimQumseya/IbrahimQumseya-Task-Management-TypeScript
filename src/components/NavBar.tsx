@@ -17,7 +17,7 @@ import { RootState } from '../app/store';
 import { Pages } from '../interfaces/data.interface';
 import { Settings } from 'http2';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../features/user/userSlice';
+import { logout, refreshState } from '../features/user/userSlice';
 import ProgressSpinner from './progress/ProgressSpinner';
 import { selectTaskStatus, UserInterface } from '../features/tasks/tasksSlice';
 import { getUserProfileImage } from '../api/userAPI';
@@ -69,7 +69,9 @@ const NavBar = () => {
 
   const handleCloseUserMenu = (name: any) => {
     if (name === 'Logout' && token) {
+      dispatch(refreshState());
       dispatch(logout());
+
       sessionStorage.clear();
       navigate('/login');
     }
@@ -86,9 +88,6 @@ const NavBar = () => {
 
   React.useEffect(() => {
     if (doesUserHaveImage && !profileImage) {
-      console.log('====================================');
-      console.log('hello');
-      console.log('====================================');
       dispatch(getUserProfileImage());
     }
   }, [doesUserHaveImage, dispatch, profileImage]);

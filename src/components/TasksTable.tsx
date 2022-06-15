@@ -128,7 +128,7 @@ function RowComponent(props: { row: TasksInterface }) {
                 <TableHead>
                   <TableRow>
                     <TableCell>IsActivated</TableCell>
-                    <TableCell>Details</TableCell>
+                    {/* <TableCell>Details</TableCell> */}
                     <TableCell align='center'>status</TableCell>
                   </TableRow>
                 </TableHead>
@@ -137,7 +137,7 @@ function RowComponent(props: { row: TasksInterface }) {
                     <TableCell component='th' scope='row'>
                       {row.taskMetadata.isDeactivated.toString()}
                     </TableCell>
-                    <TableCell>{row.taskMetadata.details}</TableCell>
+                    {/* <TableCell>{row.taskMetadata.details}</TableCell> */}
                     <TableCell align='center'>
                       <FormControl sx={{ width: '200px' }}>
                         <Select
@@ -233,7 +233,7 @@ function TasksTable() {
                   Username
                 </TableCell>
                 <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: 18 }}>
-                  title
+                  Room Number
                 </TableCell>
                 <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: 18 }}>
                   description
