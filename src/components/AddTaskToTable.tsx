@@ -55,7 +55,7 @@ function AddTaskToTable() {
           required
           fullWidth
           id='title'
-          label='Title'
+          label='Room Number'
           name='title'
           value={state.title}
           autoComplete='title'
